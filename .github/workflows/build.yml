@@ -1,4 +1,4 @@
-name: Build on PR
+name: Build and Deploy
 
 on:
   pull_request:
@@ -8,18 +8,32 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-      
-      - name: Install Dependencies
-        run: npm install
-      
-      - name: Generate prisma client
-        run: npm run db:generate
-        
-      - name: Run Build
-        run: npm run build
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Set up DATABASE_URL
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}  # Referencing the secret
+      run: |
+        npx prisma migrate deploy
+        npx prisma generate
+
+    - name: Build the project
+      run: npm run build
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}  # Make sure DATABASE_URL is accessible during the build
+
+    - name: Run tests
+      run: npm test
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}  # Ensure tests can access DATABASE_URL
