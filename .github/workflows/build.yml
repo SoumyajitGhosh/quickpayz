@@ -24,9 +24,7 @@ jobs:
     - name: Set up DATABASE_URL
       env:
         DATABASE_URL: ${{ secrets.DATABASE_URL }}  # Referencing the secret
-      run: |
-        npx prisma migrate deploy
-        npx prisma generate
+      run: db:generate
 
     - name: Build the project
       run: npm run build
