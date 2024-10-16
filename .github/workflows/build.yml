@@ -24,7 +24,7 @@ jobs:
     - name: Set up DATABASE_URL
       env:
         DATABASE_URL: ${{ secrets.DATABASE_URL }}  # Referencing the secret
-      run: db:generate
+      run: npm run db:generate
 
     - name: Build the project
       run: npm run build
