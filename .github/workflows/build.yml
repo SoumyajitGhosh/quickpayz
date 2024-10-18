@@ -31,15 +31,15 @@ jobs:
 
       - name: Add SSH Private Key
         run: |
-          echo "${{ secrets.SSH_KEY }}" > ec2-key.pem
-          chmod 400 ec2-key.pem
+          echo "${{ secrets.SSH_KEY }}" > quickpayz-1.pem
+          chmod 400 quickpayz-1.pem
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          key: ec2-key.pem
+          key: quickpayz-1.pem
           key_options: '-o StrictHostKeyChecking=no'
           script: |
             sudo docker pull soumyajitghosh98/quickpayz:latest
