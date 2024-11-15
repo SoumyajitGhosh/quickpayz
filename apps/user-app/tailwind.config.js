@@ -7,7 +7,14 @@ module.exports = {
     "../../packages/ui/**/*.{js,ts,jsx,tsx,mdx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        'fill-available': '-webkit-fill-available',
+      },
+      width: {
+        'fill-available': '-webkit-fill-available',
+      }
+    },
   },
   plugins: [],
 }
