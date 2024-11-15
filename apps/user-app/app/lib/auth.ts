@@ -53,6 +53,9 @@ export const authOptions = {
           },
         })
     ],
+    pages: {
+        signIn: "/signin",
+    },
     secret: process.env.JWT_SECRET || "secret",
     callbacks: {
         // TODO: can u fix the type here? Using any is bad
