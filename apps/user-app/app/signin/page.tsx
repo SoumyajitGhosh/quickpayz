@@ -4,6 +4,7 @@ import { signIn } from "next-auth/react";
 import { Button } from "@repo/ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import AppLogo from "@repo/ui/applogo";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -33,7 +34,8 @@ export default function SignInPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="w-full max-w-md space-y-8 p-6">
-        <div className="space-y-4 w-[400px]">
+        <div className="space-y-4 w-[400px] justify-center flex flex-col">
+          <AppLogo />
           <div>
             <label
               htmlFor="phone"
