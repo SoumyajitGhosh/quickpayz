@@ -20,7 +20,7 @@ export const authOptions = {
                 }
             });
 
-            if (existingUser) {
+              if (existingUser) {
                 const passwordValidation = await bcrypt.compare(credentials.password, existingUser.password);
                 if (passwordValidation) {
                     return {
@@ -31,24 +31,24 @@ export const authOptions = {
                 }
                 return null;
             }
-
-            try {
-                const user = await db.user.create({
-                    data: {
-                        number: credentials.phone,
-                        password: hashedPassword
+              else {
+                try {
+                    const user = await db.user.create({
+                        data: {
+                            number: credentials.phone,
+                            password: hashedPassword
+                        }
+                    });
+    
+                    return {
+                        id: user.id.toString(),
+                        name: user.name,
+                        email: user.number
                     }
-                });
-
-                return {
-                    id: user.id.toString(),
-                    name: user.name,
-                    email: user.number
+                } catch (e) {
+                    console.error(e);
                 }
-            } catch(e) {
-                console.error(e);
             }
-
             return null
           },
         })
